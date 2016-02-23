@@ -127,29 +127,45 @@ if __name__ == "__main__":
     # Wait before continuing
     input()
 
-    # To calculate the mode we are going to use a map to count the occurances
+    # To calculate the mode we are going to use a dictionary to count the occurences of each temperature
+    # i.e. the temp will be the key and the value will be how many times that value appears
     barn_temps_counter = {}
 
+    # We loop over each temperature in turn
     for temp in barn_temps:
+
+        # If the temperature is already in the keys then we increase the count by 1
         if temp in barn_temps_counter:
             barn_temps_counter[temp] += 1
+        # Otherwise (the temp is not in the dictionary therefore) we create the entry and set it to be 1
         else:
             barn_temps_counter[temp] = 1
 
-    # we then need two variables, 1st a list to hold the temps that has the most counts and 2nd the number of those
+    # we then need two variables
+    # 1st a list to hold the temps that has the most counts
     barn_modal_temp = []
+
+    # 2nd the number of times that temperature occurs
     barn_modal_count = 0
 
-    # we then loop over the keys of the map (i.e. the temps)
+    # we then loop over the keys of the dictionary (i.e. the temps)
     for temp in barn_temps_counter:
+
+        # We get teh number of times the temperature occurs
         temp_count = barn_temps_counter[temp]
 
-        # Now we compare the count value with the current modal count
+        # The count obtained (i.e. temp_count) is equal to the current model count (barn_modal_temp) then we add the temperature to the
+        # list of temperatures (i.e. barn_modal_temp)
         if temp_count == barn_modal_count:
             barn_modal_temp.append(temp)
+
+        # If the count is greater that the current model count then
         elif temp_count > barn_modal_count:
+            # We now set the current model count to be the count obtained
             barn_modal_count = temp_count
+            # Empty the list of temperatures by creating a new list
             barn_modal_temp = []
+            # Now add the new temp to the barn_modal temperature list
             barn_modal_temp.append(temp)
 
     # We could then use the same method to calculate the mode values for other temps
@@ -168,10 +184,11 @@ if __name__ == "__main__":
     if barn_length % 2 == 0:
 
         # This is the more complicated case, we have to find the two in the middle and take the mean of that value
+        # (Corrected from the discussions during the course)
         mid_point = barn_length // 2
 
-        val_1 = barn_temps[mid_point]
-        val_2 = barn_temps[mid_point + 1]
+        val_1 = barn_temps[mid_point - 1]
+        val_2 = barn_temps[mid_point]
 
         barn_median = (val_1 + val_2) / 2
     else:
@@ -185,7 +202,7 @@ if __name__ == "__main__":
 
     # Ex 6 Create a dictionary using this data
 
-    # What map you create is upto you but I am going to create a map of maps where the first is keyed by
+    # What dictionary you create is upto you but I am going to create a dictionary of dictionary where the first is keyed by
     # location and the second by the time
 
     # Create empty map
@@ -203,5 +220,5 @@ if __name__ == "__main__":
         temps["greenhouse"][time] = greenhouse_temps[index]
 
     print("Temps map:")
+    # pprint.pprint will allow us to "pretty print" the map
     pprint.pprint(temps)
-
